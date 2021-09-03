@@ -1,0 +1,153 @@
+1 - Man: Manual de um comando.
+Ex: man ls
+
+2 - ls: Listar o contéudo de um diretório.
+Ex: ls
+
+3 - clear: Limpa a tela.
+Ex: clear // CTRL + L
+
+4 - cp: Copiar arquivos de um lugar para o outro.
+Ex: cp (arquivo ou diretório para cópia) (diretótio destino)
+
+5 - mv: Mover arquivos de um diretório para o outro ou renomear.
+Ex: mv (arquivo orirem) (diretório destino)
+Ex²: mv (arquivo origem) (arquivo destino)
+
+6 - rm: Excluir arquivos ou diretórios.
+Ex: rm (arquivo)
+Ex²: rm -r (diretório)
+
+7 - pwd: Mostrar o diretório atual.
+Ex: pwd
+
+8 - cd: Mudar o diretório atual.
+Ex: cd (diretório)
+
+9 - touch: Criar arquivos de textos vazios no diretório atual ou um escolhido.
+Ex: touch (nome)
+Ex²: touch (diretótio)/(nome do arquivo)
+
+10 - nano/vi: Editar arquivos de texto.
+Ex: nano (nome do arquivo) // Ctrl + O = Salvar // Ctrl + X = Sair
+Ex²: vi (nome do arquivo) // i = entrar no modo de inserção // esc = sair do modo de inserção // :w = Salvar // :q = Sair do editor // :wq = salvar e sair
+
+11 - cat: Mostrar o conteúdo de um arquivo.
+Ex: cat (arquivo)
+
+12 - sudo: Executar comandos com altos priviégios.
+Ex: sudo ifconfig
+
+13 - apt: Instalar, atualizar ou desinstalar pacotes.
+Ex: apt install (nome do pacote)
+Ex²: apt upgrade
+Ex³: apt remove (nome)
+
+14 - mkdir: Criar diretórios.
+Ex: mkdir (nome)
+Ex²: mkdir -p (nome/nome/...) = Criar um diretório com subsdiretórios.
+Ex³: mkdir (diretório)/(novo diretório) = Criar subdiretórios em um diretório já existente. *Criação de um subdiretório por vez.*
+
+15 - less: Vizualizar o contéudo de arquivos paginados.
+Ex: less // Sair do modo less = Pressionar a tecla 'Q'
+
+16 - ps: Listar os processos em execução no sistema ------|
+Ex: ps aux                                                |-------------> Ex: ps aux | grep bash
+                                                          |
+17 - grep: Filtrar a saída de um comando -----------------|                 
+Ex: grep 'nome para filtragem' (/diretório)
+
+18 - kill: Matar um processo
+Ex: sudo kill -9 (PID) // PID obtida pela comando 'ps aux'
+
+19 - tar: Empacotar/Desempacotar pacotes.
+Ex: tar -czvf (nome desejado).tar.gz (diretório/ para compactar) // tar -xzvf (nome).tar.gz [GZIP]
+Ex²: tar -cjf (nome desejado).tar.bz2 (diretório para compactar) // tar -xjf (nome).tar.bz2 [BZIP]
+
+20 - shutdown: Desligar ou reiniciar o sistema
+Ex: sudo shutdown now
+Ex²: sudo shutdown -r
+
+21 - find: Localizar um arquivo em um diretório.
+Ex: find -name (nome do arquivo)
+
+22 - adduser: Criar usuários// Adicionar usuários em um grupo.
+Ex: sudo adduser (nome) (grupo)
+
+23 - userdel: Apagar usuários.
+Ex: sudo userdel -f -r (nome)
+
+24 - su: Trocar de usuário.
+Ex: su (usuario)
+
+25 - passwd: Alterar senha do usuário.
+Ex: passwd (usuário)
+
+26 - deluser: Remover usuários de um grupo.
+Ex: sudo deluser (usuário) (grupo)
+
+27 - exit: Logout de um usuário.
+Ex: exit
+
+28 - systemctl: Iniciar/Parar/Status um serviço.
+Ex: systemctl start (serviço)
+Ex²: systemctl stop (serviço)
+Ex³: systemctl status (serviço)
+
+29 - du: Verificar o quanto de espaço um arquivo ou um diretório ocupa.
+Ex: du -h
+
+30 - chown : Mudar a propriedade de um arquivo para outro usuário.
+Ex: chown (usuário) (nome do arquivo)
+
+31 - chgrp: Alterar o grupo de um arquivo ou diretorio
+Ex: chgrp (novo grupo) (arqui. ou diretorio)
+
+32 - addgroup: Criar grupos.
+Ex: sudo addgroup (nome)
+
+33 - delgroup: Deletar grupos.
+Ex: sudo delgroup (grupo)
+
+34 - lsof: listar os descritores de arquivos abertos pelos processos em execução no sistema operacional
+Ex: lsof
+
+35 - htop: Análise de porcessos. O quanto está usando a gpu/memória..
+Ex: htop
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                                                                              CHMOD
+
+ps aux
+
+permissoes  links   proprietario   grupo        tamanho      data e hora     nome 
+drwxrwxr-x   2      azureadmin     azureadmin     4096       Mar 31 05:04    kiwi 
+
+
+
+
+proprietário                grupo      outros
+   rwx                       rwx         r-x
+
+
+d = diretorio
+- = arquivo comum de usuario 
+c = arquivo de caractere
+b = arquivo de bloco
+l = link 
+
+rwx, sempre nessa ordem
+r = read (leitura)
+w = write (escrita)
+x = execution (execução)
+- = sem permissão
+
+
+alterar as permissoes de arquivos e diretorios = chmod (permissões, na ordem pgo e na soma da octal) (arquivo ou diretorio)
+
+permissões octal:     1 = ligado / 0 = desligado (binario para decimal)        rwx      --x          -w-       r--
+leitura = 4                                                                    111      001(1d)      010(2d)   100(4d)
+escrita = 2  
+execução = 1
+
+Ex: chmod 750 ./aquivodeteste

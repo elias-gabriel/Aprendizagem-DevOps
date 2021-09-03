@@ -1,0 +1,171 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+criar diretorio: mkdir (nome)
+
+criar arquivo: cat > filename cria um novo arquivo
+cat filename1 filename2>filename3 junta dois arquivos (1 e 2) e armazena a saída deles num novo arquivo (3)
+
+editar um arquivo: nano (nome)
+
+apagar aquivo: rm (nome) ; apagar diretorio: rm -r (nome)
+
+apagar diretorios vazios: rmdir (nome)
+
+renomear um diretorio/arquivo: mv (nome) (novo nome)
+
+mover arquivo/diretorio: mv (nome) (diretorio)
+
+criar arquivo dentro de um diretorio: touch (diretorio)/(nome do arquivo)
+
+criar subdiretorios: mkdir (nome do diretorio que deseja criar a os subs)/(nome do subdiretorio)
+
+criar subdiretorios sem ja ter criado um diretorio: mkdir -p (nome do diretorio principal)/(nome do subdiretorio)
+
+junta dois arquivos e armazena a saída deles num novo arquivo: cat filename1 filename2>filename3
+
+criar novos arquivos em branco: touch (diretorio)/(nome do arquivo)
+
+localizar arquivos: find (diretorio) -name (nome do arquivo que deseja ser localizado)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+mostrar a quantidade de espaço em uso e a quantidade de espaço livre em um sistema de arquivo: df -h
+listar os descritores de arquivos abertos pelos processos em execução no sistema operacional: lsof
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+adicionar usuario: sudo adduser (nome)
+apagar usuario: sudo userdel -f -r (nome)
+alterar senha usuario: passwd
+trocar de usuario:su (nome)
+logout de usuario: exit
+adicionar ao grupo sudo/admin: sudo adduser (user) sudo
+remover usuario de um grupo: sudo deluser (nomeusuario) (grupo)
+listar users ou grupos existentes: cat /etc/passwd | cat /etc/group
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+instalar aplicativos: sudo apt install (nome | python | tree)
+atualizar aplicativos: sudo apt-get upgrade, depois apt-get update
+desinstalar software: sudo apt remove(nome)
+
+
+nas distribuições debian:
+baixar: dpkg (opções) (pacote.deb)
+instalar: dpkg -i (nome do pacote.deb)
+verificar se um pacote esta instalado: dpkg -s (nome do pacote)
+desinstalar dpkg -r (nome do pacote)
+instalar mais de um: dpkg -i -R (diretorio com os arquivos .deb)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+compactar: tar -czvf (nome zip).tar.gz pasta (diretorio para empacotar)
+descompactar: tar -xzvf (nome zip).tar.gz
+
+
+compactar arquivos: tar -cjf (nome do zip desejado).tar.bz2 (diretorio desejado para empacotar e compactar)
+descompactar: tar -xjf (nome do zip)
+              tar -xvf (nome do zip) **para arquivos tar.xz**
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+mostrar a quantidade de espaço em uso e a quantidade de espaço livre em um sistema de arquivo: df -h
+listar os descritores de arquivos abertos pelos processos em execução no sistema operacional: lsof
+verificar o uso de processos do sistema e constatar quais deles estão consumindo mais memória ou processamento: top//htop
+r verificar o quanto de espaço um arquivo ou um diretório ocupa: du -h
+
+matar um processo: kill -9 (PID mostrada pelo comando TOP)
+pausar um processo: kill -SIGSTOP (pid)
+continuar um processo: kill -CONT (pid)
+listar todos os processos que estão rodando no seu sistema: ps -aux
+
+ps aux para verificar o PID
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ps aux
+
+permissoes  links   proprietario   grupo        tamanho      data e hora     nome 
+drwxrwxr-x   2      azureadmin     azureadmin     4096       Mar 31 05:04    kiwi 
+
+
+
+
+proprietário                grupo      outros
+   rwx                       rwx         r-x
+
+
+d = diretorio
+- = arquivo comum de usuario 
+c = arquivo de caractere
+b = arquivo de bloco
+l = link 
+
+rwx, sempre nessa ordem
+r = read (leitura)
+w = write (escrita)
+x = execution (execução)
+- = sem permissão
+
+
+alterar as permissoes de arquivos e diretorios = chmod (permissões, na ordem pgo e na soma da octal) (arquivo ou diretorio)
+
+permissões octal:     1 = ligado / 0 = desligado (binario para decimal)        rwx      --x          -w-       r--
+leitura = 4                                                                    111      001(1d)      010(2d)   100(4d)
+escrita = 2  
+execução = 1
+
+alterar o grupo de um arquivo ou diretorio: chgrp (novo grupo) (arqui. ou diretorio)
+mudar proprietario de um arquivo ou diretorio: chwon (novo proprietario) (arqui. ou diretorio)
+criar grupo: addgroup (nome do grupo)
+deletar grupo: sudo delgroup (nome do grupo)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+transferir arquivos de forma fácil e segura entre um local remoto e um host ou entre dois locais remotos,
+ifconfig, eth0, ip inet
+scp (directory and file name) (destination username@IP):/[destination directory]  // **do host para o remoto**
+
+fazer o download de um arquivo remotamente
+scp (username@ip da maquinha que deseja fazer o download):(caminho do arquivo) (nome que o arquivo vai receber quando chegar na maquina) 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cronjobs 
+
+crontab -e: entrar no modo de edição das tabelas do cron
+contrab -u (user) -e: modificar tarefa de usuario
+contrab -l: vizualizar as tarefas agendadas dentro da sua tabela
+dar permissão pra um user: sudo nano /etc/cron.allow
+
+possui 6 colunas, sendo: minuto Hora Dia Mes dia_semana comando
+*minuto: valores de 0 a 59
+*hora: valores de 0 a 23
+*dia: valores de 1 a 31
+*mes: valores de 1 a 12
+*dia_semana: valores de 0 a 7
+*comando: o comando a ser executado ou script
+
+para varios valores usa-se ','
+para um intervalo usa-se (-)
+
+ex: 58 17 * * * touch frutas
+    59 17 * * * tar -cjf frutascompac.tar.bz2 frutas
+    00 18 * * * rm frutas
+    01 18 * * * tar -xjf frutascompac.tar.bz2
+    02 18 * * * rm frutascompac.tar.bz2
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+gerenciar serviços: systemctl
+iniciar serviço: sudo systemctl start (nome) // systemctl start nginx.service
+parar serviço: sudo systemctl stop (nome)
+reiniciar um serviço: sudo systemctl restart (nome)
+recarregar serviço sem reiniciar: sudo systemctl reload (nome)
+verificar se um serviço esta ativo: systemctl status (nome)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+exemplo de como instalar apps por site(tor):
+
+1 - faça o download do tor no site: 'https://www.torproject.org/download/'
+2 - Execute o terminal e va para onde o tor foi baixado 'cd Downloads/'
+3 - descompacte o arquivo 'tar -xvf (nome do arquivo compactado)'
+4 - entre no diretorio 'cd (nome do diretorio descompactado)'
+5 - execute a instalação './start-tor-browser.desktop'
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+                                                                    
+                                           
+
+
+
+
+
+
+

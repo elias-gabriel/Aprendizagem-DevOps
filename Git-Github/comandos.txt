@@ -1,0 +1,90 @@
+--------------------------------------------------------------------------------Essenciais---------------------------------------------------------------------------------------
+
+Primeiro, use "git config --global user.name 'SEU NOME'" e em seguida "git config --global user.email 'SEU EMAIL'".
+
+Para utilizar o git, crie a pasta do projeto que será enviado ao GitHub. 'mkdir ProjetoGit'
+
+Em seguida, navegue até a pasta (cd ProjetoGit) e utilize o comando 'git init'. Esta comando cria um repositório GIT e começa a monitorar o diretório 'ProjetoGit'.
+
+Comece a fazer o seu projeto..
+
+Depois de feito, utilize o comando git status para verificar os arquivos que foram adicionados/modificados/deletados.
+
+Em seguida, use o comando git add . para adicionar TODOS os arquivos ao commit ou use git add (nome do arquivo).
+
+Depois, use o comando git commit -m 'First Commit' para para capturar o estado de um projeto neste momento.
+
+Agora, vá ao GitHub e crie o repositório que ficará o seu Projeto.
+
+Com o repositório do GitHub criado, execute o comando: git remote add origin LINK_DO_REPOSITORIO_GITHUB. Este comando adicionará os arquivos da pasta 'ProjetoGit' no repositório do GitHub.
+
+Agora, use o comando git push -u origin master. Este comando fará com que os arquivos de seu projeto apareça no GitHub¹.
+Nesta parte, o GIT vai pedir seu usuário e senha do GitHub.
+
+
+Caso queira apagar toda a pasta do projeto, use abra o terminal ou o git bash e use 'rm -rf (diretótio)'^5
+
+										
+--------------------------------------------------------------------------VOLTANDO O PROJETO NO TEMPO----------------------------------------------------------------------------
+
+Para voltar um commit, use o comando 'git reset --hard hash_do_commit' // git reset HEAD~1 --hard (esse comando irá voltar o projeto à um commit)
+				      Para descobrir o hash do commit que deseja voltar, use 'git log' ( https://prnt.sc/1d7324f )
+                                      Para sair da tela de logs, use a tecla 'Q'.
+ 
+Ex: git reset --hard 680f872
+Resposta do GIT: HEAD is now at hash_do_commit nome_do_commit ( https://prnt.sc/1d75i4j )
+
+Portanto, se você olhar o código do projeto, ele estará no estado em que foi feito o commit escolhido³.
+REFERÊNCIA GITHUB ( https://prnt.sc/1d787hx ) 
+
+--------------------------------------------------------------------------------- Filtragem de Commits---------------------------------------------------------------------------
+
+
+Uma das opções que mais ajuda é -p, que mostra as diferenças introduzidas em cada commit. Você pode também usar -2, que lista no retorno apenas os dois últimos itens.
+Ex: git log -p -2 
+Ex²: git log -5 // para obter o hash somente dos últimos 5 commits
+Ex³ git log --oneline // obter os logs de forma curta e objetiva
+
+
+--------------------------------------------------------------------------Clonagem de Repositórios-------------------------------------------------------------------------------
+										
+Para clonar repositórios do Github, utilize o comando git clone (url_repositório)^4
+Para fazer a clonagem de uma branch especifica, use git clone -b (nome_da_branch) (url_repositório)
+Para clonar um repositório e escolher o nome da pasta, faça git clone (url_repositório) (nome_da_pasta), assim, os arquivos de tal repositório ficará com o nome_da_pasta
+
+-------------------------------------------------------------------------------Branches------------------------------------------------------------------------------------------
+Para criar uma branch, use git branch (nome_da_branch)^6
+Para visualizar as branches existentes, use git branch
+Para trocar de branch, user git checkout (nome_da_branch)
+Para remover uma branch local, use git branch -d (nome_da_branch)
+Para remover uma branch remota, use git push (remote_name) :(nome da branch) // git push (remote_name) --delete (nome_da_branch)
+									Ex¹: git push origin :branch2
+									Ex²: git push origin --delete branch2
+Para dar o push na nova branch, use git push -u (remote_name) (nome_da_branch)
+						Ex: git push -u origin branch2
+Criar um branch e ja mudar para ele: git checkout -b (nome_da_branch)
+
+								     ------------Merge & Rebase ------------
+Para juntar os arquivos de duas branches, use git merge (nome_da_branch), isso irá gerar um commit do merge com cada arquivo em ordem de ação^7
+Para juntar os arquivos de duas branches sem commit por padrão, use git merge (nome_da_branch) --squash	
+
+git rebase (nome_da_branch) // Para juntar os arquivos de duas branches em um certo commit. Uso RECOMENDADO para ter os arquivos da linha 'master' na 'branch2', evintando poluir o projeto de commit.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+OBS¹: Caso faça alguma atualização no projeto, use 'git add .', em seguida 'git commit -m 'Second Commit' e depois execute o comando 'git push'. Só precisa do '-u origin master' no primeiro push.
+
+OBS²: Caso a Autenticação de 2 fatores estiver ativada, desative-a (se estiver tentando fazer o push pelo Linux).
+
+OBS³: Caso volte para o primeiro commit, se tentar usar o 'git log', não irá aparecer os outros commits, somente pelo GitHub. // git pull (remote_name) master. Irá atualizar para a versão mais recente do código.
+
+OBS^4: Caso nao especifique a branch, a que será clonada será a 'default' ( https://prnt.sc/1jp43fl )
+
+OBS^5: Ao usar o comandos 'rm -rf', o terminal não irá pedir confirmação de deleção.
+
+OBS^6: Esse comando criará uma nova branch com os arquivos da antiga (master). É recomendado que não apague os arquivos da nova branch, se fizer isso e quiser fazer um merge entre as duas, só irá aparecer os arquivos da nova branch, deletando os da antiga.
+
+OBS^7: Tenha certexa que que você esteja na branch principal. Caso execute o comando com a branch 'master' selecionada, os arquivos da 'branch2' irão para a master.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+									

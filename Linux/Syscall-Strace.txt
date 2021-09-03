@@ -1,0 +1,14 @@
+Systemcalls são métodos utilizados por processos para que consiga se comunicar e requisitar serviços do OS // é a ponte de comunicação entre o processo e o sistema operacional.
+O strace é uma ferramenta que monitora as chamadas de sistema (system calls) e os sinais recebidos pela aplicação.
+
+Para utilizar o strace, utiliza-se 'strace -p (PID)' // Para obter o PID, use o comando ps aux| grep (nome da aplicação)
+                                                                                        Ex: ps aux | grep nginx
+                                                                                            strace -p (PID)
+                                                                                            sudo kill -s SIGSTOP (PID)
+                                                                                            SAÍDAS: https://prnt.sc/153o635
+                                                                                            
+Como mostrado na imagem, obtive o PID do nginx usando o ps aux e o grep para realizar a filtragem. Depois, execetei o strace para realização do monitoramento do serviço e 
+recebimento de sinais.
+
+Com o strace, pode-se saber se o processo esta funcionando de maneira correta. O strace não funciona em todos os softwares.
+O rastreamento é finalizado quando o precesso rastreado é finalizado. EX: https://prnt.sc/153pj8d
