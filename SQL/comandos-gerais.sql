@@ -20,3 +20,6 @@ SELECT * FROM inventário;
 -- Deletar
 DELETE FROM inventário WHERE id = 2;
 SELECT * FROM inventário;
+
+-- Alterar tipo da tabela -- 
+alter TABLE inventário Alter COLUMN nome varchar(60) NOT NULL
