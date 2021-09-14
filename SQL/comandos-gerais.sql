@@ -22,4 +22,16 @@ DELETE FROM inventário WHERE id = 2;
 SELECT * FROM inventário;
 
 -- Alterar tipo da tabela -- 
-alter TABLE inventário Alter COLUMN nome varchar(60) NOT NULL
+alter TABLE inventário ALTER COLUMN nome varchar(60) NOT NULL
+
+/*
+-- Filtrar Sáida -- 
+LIKE 'a%': Qualquer valor que começa com 'a'
+LIKE '%a': Qualquer valor que termina com 'a'
+LIKE '%or%': Qualquer valor que tenha as letras 'or' em qualquer posição
+LIKE '_r%': Qualquer valor que tenha 'r' na segunda posição
+LIKE 'a_%': Qualquer valor que começa com 'a' e tenha pelo menos 2 caracteres 
+LIKE 'a__%': Qualquer valor que começa com 'a' e tenha pelo menos 3 caracteres 
+LIKE 'a%o': Qualquer valor que começe com 'a' e termine com 'o' 
+*/
+SELECT * FROM inventário where nome LIKE '__ç%'
