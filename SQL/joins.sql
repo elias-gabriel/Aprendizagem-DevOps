@@ -64,3 +64,29 @@ select Nome_autor, Nome_livro from autor right join livro on autor.ID_Autor = li
                                                     /* OU */
 use joins;
 select Nome_autor, Nome_livro from autor full join livro on autor.ID_Autor = livro.FK_A;
+
+
+-- View -- 
+/*
+É uma tabela virtual baseada no consjunto de resultados de uma consulta SQL.
+Podem ser feitas consultas dentro destas VIEWS, como where, join.
+Mostra sempre os dados mais atualizados, pois quando a view é requisitada, ela é recriada, assim, exibindo os dadaos mais atualizados.
+
+CREATE VIEW nome_view AS SELECT _colunas_ from _tabela_ where _condições_
+
+EX: use joins;
+    create view vw_Livros AS SELECT autor.Nome_autor, livro.Nome_livro FROM autor INNER JOIN livro on autor.ID_autor = livro.FK_A;
+    select * from vw_livros
+    select Nome_autor, Nome_livro from vw_Livros where Nome_livro LIKE '%y%'
+
+EX²: use joins;
+     alter view vw_Livros AS SELECT autor.Nome_autor, livro.Nome_livro, livro.ID_livro, autor.ID_autor FROM 
+	 autor INNER JOIN livro on autor.ID_autor = livro.FK_A;
+     select * from vw_livros                                                                                                 
+
+EX³: DROP VIEW nome_view
+     use joins;
+	 DROP VIEW vw_Livros
+	 
+*/
+
