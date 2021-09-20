@@ -78,7 +78,7 @@ create table pedidos (
 	Numero_Pedido int PRIMARY KEY NOT NULL,
 	Valor money NOT NULL,
 	Status_Compra varchar(20) NOT NULL,
-	Data_Compra_Pedido date NOT NULL,
+	Data_Compra_Pedido DATE NOT NULL,
 	CPF_C VARCHAR(14) not NULL, FOREIGN KEY (CPF_C) REFERENCES clientes(CPF),
 )
 
@@ -95,7 +95,7 @@ INSERT INTO pedidos VALUES('20', '39.80', 'Aprovado','2021/04/28', '767.696.474-
 						  ('29', '149.96', 'Em Transporte', '2021/08/21', '488.162.220-00')
 
 
--- select Numero_Pedido, Status_Compra, Itens_Pedidos, Data_Compra_Pedido, FORMAT (Valor, 'C', 'pt-BR') as Valor FROM pedidos
+-- select Numero_Pedido, Status_Compra, Data_Compra_Pedido, FORMAT (Valor, 'C', 'pt-BR') as Valor FROM pedidos
 
 --Tabela Histórica
 create table hist_pedido (

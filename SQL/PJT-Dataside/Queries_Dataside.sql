@@ -1,6 +1,6 @@
 -- Ultimo Pedido Cliente
-SELECT Nome, SobreNome, Data_Compra_Pedido, CPF_C from pedidos inner join clientes on pedidos.CPF_C 
-= clientes.CPF  ORDER BY Data_Compra_Pedido DESC
+SELECT Nome, SobreNome, MAX(Data_Compra_Pedido) AS Compra_Ultimo_Pedido, CPF_C from pedidos inner join clientes on pedidos.CPF_C 
+= clientes.CPF group by Nome, SobreNome, CPF_C ORDER BY Compra_Ultimo_Pedido DESC
 
 -- RANKING Produto mais vendido
 SELECT top 5 ProdutoID, produtos.Nome_Produto, COUNT(*) AS VENDAS from itens_pedidos inner join produtos on 
@@ -14,6 +14,7 @@ SELECT top 5 Nome, SobreNome, pedidos.Valor, Data_Compra_Pedido from clientes in
 /* Teste Tabela Histórica
 
 UPDATE pedidos set Status_Compra = 'Entrege' where Numero_Pedido = 29
+UPDATE pedidos set Status_Compra = 'Cancelado' where Numero_Pedido = 29
 INSERT into pedidos VALUES ('59', '19.90 ', 'Pendente', '2021/05/22', '984.678.461-84')
 UPDATE pedidos set Status_Compra = 'Em Transporte' where Numero_Pedido = 59
 
@@ -21,4 +22,6 @@ UPDATE pedidos set Status_Compra = 'Em Transporte' where Numero_Pedido = 59
 select * from clientes
 select * from pedidos
 SELECT * from produtos 
-select * from hist_pedido */
+select * from hist_pedido order by Data_Modi DESC 
+
+*/

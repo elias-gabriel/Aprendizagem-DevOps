@@ -23,3 +23,10 @@ SELECT top 5 Nome, SobreNome, Data_Compra_Pedido, CPF_C from pedidos inner join 
 
 SELECT CPF_C, Nome, SobreNome, Data_Compra_Pedido from pedidos inner join clientes on pedidos.CPF_C 
 = clientes.CPF ORDER by  1
+
+
+SELECT Nome, SobreNome, Data_Compra_Pedido from pedidos INNER join clientes on pedidos.CPF_C = clientes.CPF order by Data_Compra_Pedido DESC
+
+
+SELECT Nome, SobreNome, MAX(Data_Compra_Pedido) AS Compra_Ultimo_Pedido, CPF_C from pedidos INNER join clientes on pedidos.CPF_C 
+= clientes.CPF group by Nome, SobreNome, CPF_C ORDER BY Compra_Ultimo_Pedido DESC
