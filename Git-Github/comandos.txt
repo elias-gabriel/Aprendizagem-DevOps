@@ -39,12 +39,10 @@ REFERÊNCIA GITHUB ( https://prnt.sc/1d787hx )
 
 --------------------------------------------------------------------------------- Filtragem de Commits---------------------------------------------------------------------------
 
-
 Uma das opções que mais ajuda é -p, que mostra as diferenças introduzidas em cada commit. Você pode também usar -2, que lista no retorno apenas os dois últimos itens.
 Ex: git log -p -2 
 Ex²: git log -5 // para obter o hash somente dos últimos 5 commits
 Ex³ git log --oneline // obter os logs de forma curta e objetiva
-
 
 --------------------------------------------------------------------------Clonagem de Repositórios-------------------------------------------------------------------------------
 										
@@ -64,11 +62,19 @@ Para dar o push na nova branch, use git push -u (remote_name) (nome_da_branch)
 						Ex: git push -u origin branch2
 Criar um branch e ja mudar para ele: git checkout -b (nome_da_branch)
 
-								     ------------Merge & Rebase ------------
+								     ------------ Merge & Rebase ------------
 Para juntar os arquivos de duas branches, use git merge (nome_da_branch), isso irá gerar um commit do merge com cada arquivo em ordem de ação^7
 Para juntar os arquivos de duas branches sem commit por padrão, use git merge (nome_da_branch) --squash	
 
 git rebase (nome_da_branch) // Para juntar os arquivos de duas branches em um certo commit. Uso RECOMENDADO para ter os arquivos da linha 'master' na 'branch2', evintando poluir o projeto de commit.
+
+                                                                     ------------ CherryPick ------------
+git cherry-pick (hash do commit)
+Sua funcionalidade é copiar os arquivos de um commit de uma branch para a outra.
+
+Ex: git cherry-pick 54dd73
+
+Esse comando irá copiar as mudanças do commit 54dd73 da branch X e irá 'colar' estes arquivos para a branch atual.
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 OBS¹: Caso faça alguma atualização no projeto, use 'git add .', em seguida 'git commit -m 'Second Commit' e depois execute o comando 'git push'. Só precisa do '-u origin master' no primeiro push.
