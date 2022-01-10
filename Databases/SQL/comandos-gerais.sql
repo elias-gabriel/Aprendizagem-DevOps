@@ -25,6 +25,12 @@ SELECT * FROM inventário;
 alter TABLE inventário ALTER COLUMN nome_fruta varchar(60) NOT NULL
 ALTER TABLE nome_tabela CHANGE COLUMN nome_antigo_coluna novo_nome_coluna CHAR(35) NOT NULL DEFAULT '' ;
 
+-- Alterar nome da tabela 
+sp_rename 'nome_tabela', 'novo_nome';
+
+--Alterar nome da coluna
+sp_rename 'nome_tabela.nome_coluna', 'novo_nome', 'COLUMN';
+
 
 /*
 -- Operação Like -- 
