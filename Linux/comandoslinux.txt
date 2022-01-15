@@ -154,18 +154,13 @@ exemplo de como instalar apps por site(tor):
 4 - entre no diretorio 'cd (nome do diretorio descompactado)'
 5 - execute a instalação './start-tor-browser.desktop'
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Criptografando arquivos com GPG:
 
-
-
-
-
-
-                                                                    
-                                           
-
-
-
-
-
-
-
+1 - Para criptografar um arquivo, digite 'gpg -c (nome do arquivo)' // Ex: gpg -c meuarquivo.txt
+2 - Em seguida, escolha uma senha que será usada para descriptografar o arquivo
+3 - Depois do processo, sera criado um arquivo .gpg // Ex: meuarquivo.txt.gpg
+    Assim, você poderá apagar o arquivo original, deixando somente o com final .gpg // Ex: rm meuarquivo.txt
+4 - Para realizar a descriptografia, basta usar o seguinte comando: 'gpg (nome do arquivo)' // Ex: gpg meuarquivo.txt.gpg
+    Desse modo, basta digitar a senha escolhida que irá aparecer o arquivo 'meuarquivo.txt' no diretório
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                             
