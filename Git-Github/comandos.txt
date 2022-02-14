@@ -61,6 +61,9 @@ Para remover uma branch remota, use git push (remote_name) :(nome da branch) // 
 Para dar o push na nova branch, use git push -u (remote_name) (nome_da_branch)
 						Ex: git push -u origin branch2
 Criar um branch e ja mudar para ele: git checkout -b (nome_da_branch)
+Para mudar o nome de uma branch local, use: git branch -m NOVO_NOME // OBS: Irá mudar o nome da branch em que você está no momento.
+Para mudar o nome de uma branch remota, mude o nome da mesma localmente, em seguida, delete a mesma do repos. remoto usando:  git push origin --delete NOME_ANTIGO
+	Em seguida, use git push -u origin NOME_NOVO
 
 								     ------------ Merge & Rebase ------------
 Para juntar os arquivos de duas branches, use git merge (nome_da_branch), isso irá gerar um commit do merge com cada arquivo em ordem de ação^7
