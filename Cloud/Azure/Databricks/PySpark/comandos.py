@@ -58,3 +58,7 @@ from pyspark.sql.functions import regexp_replace, substring, lit, when
 # Atualizar valores de uma coluna
   # Os valores da coluna "coluna_id" serão multiplicados por 100
    ex.withColumn("coluna_id",col("coluna_id")*100).display()
+   
+# Listar pontos de montagem do Data Lake
+   mt = dbutils.fs.mounts()
+   display(mt)
