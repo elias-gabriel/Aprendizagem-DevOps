@@ -62,3 +62,35 @@ from pyspark.sql.functions import regexp_replace, substring, lit, when
 # Listar pontos de montagem do Data Lake
    mt = dbutils.fs.mounts()
    display(mt)
+
+# Criar pontos de montagem do Data Lake no Bricks
+   def mount_adls(container_name):
+    dbutils.fs.mount(
+    source = f"abfss://{container_name}@{storage_account_name}.dfs.core.windows.net/",
+    mount_point = f"/mnt/{storage_account_name}/{container_name}",
+    extra_configs = configs)
+
+    mount_adls('nome_container')
+
+# Remover pontos de montagem do Data Lake no Bricks
+   def unmount_adls(container_name):
+    dbutils.fs.unmount(
+    f"/mnt/{storage_account_name}/{container_name}")
+
+    unmount_adls('nome_container')
+
+# Criar um dataframe a partir de um arquivo CSV
+   df = spark.read.csv("/mnt/nome_container/nome_arquivo.csv", header=True, inferSchema=True)
+
+# Delta Lake - Salvar dataframe como tabela no Delta Lake
+   df.write.format("delta").save("/mnt/nome_container/nome_arquivo.delta")
+
+# Ler arquivo delta
+   df = spark.read.format("delta").load("/mnt/nome_container/nome_arquivo.delta")
+   display(df)
+
+# Delta Lake - Atualizar tabela no Delta Lake
+   df.write.format("delta").mode("overwrite").save("/mnt/nome_container/nome_arquivo.delta")
+
+# Delta Lake - Remover tabela do Delta Lake
+   df.unpersist()
