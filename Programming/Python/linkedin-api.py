@@ -10,10 +10,10 @@ import os
 cwd = os.getcwd()
 
 email = '' # Enter your email here
-senha = '' # Enter your password here
+password = '' # Enter your password here
 user = '' # Enter your username here
 
-api = Linkedin(email,senha)
+api = Linkedin(email,password)
 
 decision = input(' A) Get profile from username\n B) Search School\n C) Search for people\n D) Search for Company\n')
 
