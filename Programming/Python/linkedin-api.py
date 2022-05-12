@@ -23,8 +23,8 @@ if decision == 'A' or decision == 'a':
     print('\n', username_data)
 
     save = input('\nSave data? (y/n) ')
-    file_name = input('\nFile name: ')
     if save == 'y' or save == 'Y':
+        file_name = input('\nFile name: ')
         with open(f'{file_name}.json', 'w', encoding='utf-8') as d:
           json.dump(username_data, d, ensure_ascii=False, indent=4)
           print("\nData saved in: {0}".format(cwd)+f"\{file_name}.json\n") 
@@ -33,12 +33,12 @@ if decision == 'A' or decision == 'a':
  
 elif decision == 'B' or decision == 'b':
     school_name = input('School name: ')
-    school_data = api.search_school(school_name)
+    school_data = api.get_school(school_name)
     print('\n', school_data)
 
     save = input('\nSave data? (y/n) ')
-    file_name = input('\nFile name: ')
     if save == 'y' or save == 'Y':
+        file_name = input('\nFile name: ')
         with open(f'{file_name}.json', 'w', encoding='utf-8') as d:
           json.dump(school_data, d, ensure_ascii=False, indent=4)
           print("\nData saved in: {0}".format(cwd)+f"\{file_name}.json\n") 
@@ -51,8 +51,8 @@ elif decision == 'C' or decision == 'c':
     print('\n', people_data)
 
     save = input('\nSave data? (y/n) ')
-    file_name = input('\nFile name: ')
     if save == 'y' or save == 'Y':
+        file_name = input('\nFile name: ')
         with open(f'{file_name}.json', 'w', encoding='utf-8') as d:
           json.dump(people_data, d, ensure_ascii=False, indent=4)
           print("\nData saved in: {0}".format(cwd)+f"\{file_name}.json\n")  
@@ -61,12 +61,12 @@ elif decision == 'C' or decision == 'c':
 
 elif decision == 'D' or decision == 'd':
     company_name = input('Company name: ')
-    company_data = api.search_company(company_name)
+    company_data = api.get_company(company_name)
     print('\n', company_data)
     
     save = input('\nSave data? (y/n) ')
-    file_name = input('\nFile name: ')
     if save == 'y' or save == 'Y':
+        file_name = input('\nFile name: ')
         with open(f'{file_name}.json', 'w', encoding='utf-8') as d:
           json.dump(company_data, d, ensure_ascii=False, indent=4)
           print("\nData saved in: {0}".format(cwd)+f"\{file_name}.json\n")  
