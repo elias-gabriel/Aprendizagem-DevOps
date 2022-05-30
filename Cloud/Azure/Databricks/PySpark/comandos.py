@@ -94,3 +94,48 @@ from pyspark.sql.functions import regexp_replace, substring, lit, when
 
 # Delta Lake - Remover tabela do Delta Lake
    df.unpersist()
+
+# Mesclar dataframes
+   df1 = spark.read.csv("/mnt/nome_container/nome_arquivo.csv", header=True, inferSchema=True)
+   df2 = spark.read.csv("/mnt/nome_container/nome_arquivo.csv", header=True, inferSchema=True)
+   df3 = df1.union(df2)
+
+# Criar coluna com valor padrão
+   df3.withColumn("coluna_novo", lit("valor_padrao")).select("coluna_novo").display()
+
+# Join
+   df1.join(df2, 'coluna', 'join_type')
+
+# Union
+   df1.union(df2)
+   
+# Upper case
+   df1.select(upper("coluna_existente").alias("coluna_existente")).display()
+
+# Merge
+   df1.merge(df2, "coluna_existente", "coluna_existente")
+
+################ WORKING WITH PANDAS ################
+import pandas as pd
+
+data = pd.read_csv("/mnt/nome_container/nome_arquivo.csv")
+data = data.drop(columns=["coluna_a_remover"])
+data = data.rename(columns={"coluna_a_renomear": "nome_novo"})
+data = data.drop_duplicates(subset=["coluna_a_remover"])
+data = data.dropna(subset=["coluna_a_remover"])
+data = data.fillna(value="valor_padrao")
+data = data.replace({"coluna_a_substituir": "valor_substituido"})
+data = data.replace({"coluna_a_substituir": "valor_substituido"}, regex=True)
+data = data.replace({"coluna_a_substituir": "valor_substituido"}, inplace=True)
+
+################ ### ################
+
+# Generic join between two dataframes
+df1 = spark.read.parquet('/mnt/stgaccpjt/clean/parquet/all_teams.parquet')
+df2 = spark.read.parquet('/mnt/stgaccpjt/clean/parquet/all_players.parquet')
+
+df3 = df1.join(df2, 'Id', 'full')
+
+def join_df(df1, df2, join_type, column_name):
+    df3 = df1.join(df2, column_name, join_type)
+    return df3
