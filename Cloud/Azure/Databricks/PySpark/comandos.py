@@ -129,13 +129,3 @@ data = data.replace({"coluna_a_substituir": "valor_substituido"}, regex=True)
 data = data.replace({"coluna_a_substituir": "valor_substituido"}, inplace=True)
 
 ################ ### ################
-
-# Generic join between two dataframes
-df1 = spark.read.parquet('/mnt/stgaccpjt/clean/parquet/all_teams.parquet')
-df2 = spark.read.parquet('/mnt/stgaccpjt/clean/parquet/all_players.parquet')
-
-df3 = df1.join(df2, 'Id', 'full')
-
-def join_df(df1, df2, join_type, column_name):
-    df3 = df1.join(df2, column_name, join_type)
-    return df3
