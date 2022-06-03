@@ -40,3 +40,7 @@ for table in list_difference:
 for table in list_difference:
     df = spark.read.format('parquet').load(table)
     df.write.option("overwriteSchema", "true").mode("overwrite").format('delta').saveAsTable(f'DATABASE_NAME.{table}')
+
+# Drop tables
+for table in lista_bricks:
+    spark.sql(f'drop table if exists {table}')
