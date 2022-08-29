@@ -28,9 +28,11 @@ ALTER TABLE nome_tabela CHANGE COLUMN nome_antigo_coluna novo_nome_coluna CHAR(3
 -- Alterar nome da tabela 
 sp_rename 'nome_tabela', 'novo_nome';
 
---Alterar nome da coluna
+-- Alterar nome da coluna
 sp_rename 'nome_tabela.nome_coluna', 'novo_nome', 'COLUMN';
 
+-- Listar Informações de tabelas do banco
+SELECT * FROM information_schema.tables 
 
 /*
 -- Operação Like -- 
@@ -53,10 +55,3 @@ CREATE INDEX nome_índice ON nome_tabela (nome_coluna)
 EX: CREATE INDEX consulta ON inventário (nome_fruta)
 DELEÇÃO: ALTER TABLE inventário DROP INDEX 'consulta'
 */
-
-
-     
-     
-     
-     
-     
