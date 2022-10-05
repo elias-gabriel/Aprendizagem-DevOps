@@ -6,6 +6,8 @@ client_secret        = ""
 
 ### KEY VAULT ###
 
+#Criar Key Vault: https://adb-[...]#secrets/createScope
+
 storage_account_name = ''
 client_id = dbutils.secrets.get(scope='SCOPE_NAME', key='SECRET_NAME')
 tenant_id = dbutils.secrets.get(scope='SCOPE_NAME', key='sSECRET_NAME')
