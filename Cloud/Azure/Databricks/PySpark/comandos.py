@@ -86,14 +86,11 @@ from pyspark.sql.functions import regexp_replace, substring, lit, when
    df.write.format("delta").save("/mnt/nome_container/nome_arquivo.delta")
 
 # Ler arquivo delta
-   df = spark.read.format("delta").load("/mnt/nome_container/nome_arquivo.delta")
+   df = spark.read.format("delta").load("/mnt/nome_container/nome_arquivo")
    display(df)
 
 # Delta Lake - Atualizar tabela no Delta Lake
-   df.write.format("delta").mode("overwrite").save("/mnt/nome_container/nome_arquivo.delta")
-
-# Delta Lake - Remover tabela do Delta Lake
-   df.unpersist()
+   df.write.format("delta").mode("overwrite").save("/mnt/nome_container/nome_arquivo")
 
 # Mesclar dataframes
    df1 = spark.read.csv("/mnt/nome_container/nome_arquivo.csv", header=True, inferSchema=True)
