@@ -17,4 +17,4 @@ def get_schema(df):
     return final_sche
      
 # using
-df.read.option('schema', final_schema).option('inferschema', True).csv('path')
+df.read.option('schema', get_schema(df)).option('inferschema', True).csv('path')
