@@ -1,6 +1,6 @@
 from pyspark.sql.types import StructType
 
-def get_schema():
+def get_schema(df):
     list_schema = df.dtypes
     fields = []
 
