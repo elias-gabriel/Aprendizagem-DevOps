@@ -37,6 +37,30 @@ FROM information_Schema.Columns C
 FULL OUTER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE U ON C.COLUMN_NAME = U.COLUMN_NAME
 WHERE C.TABLE_NAME = 'TABLE_NAME'
 
+
+-- TRANSACTION
+BEGIN TRANSACTION;
+
+-- Backup the data
+SELECT * INTO all_players_backup FROM all_players;
+
+-- Drop the table
+DROP TABLE all_players;
+
+-- Create the table with new structure
+CREATE TABLE all_players (
+    Id INT PRIMARY KEY,
+    Player_Name VARCHAR(255),
+    new_column VARCHAR(255)
+);
+
+-- Insert data from backup table
+INSERT INTO all_players SELECT * FROM all_players_backup;
+
+COMMIT;
+--
+
+
 /*
 -- Operação Like -- 
 LIKE 'a%': Qualquer valor que começa com 'a'
