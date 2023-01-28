@@ -29,7 +29,7 @@ ALTER TABLE nome_tabela CHANGE COLUMN nome_antigo_coluna novo_nome_coluna CHAR(3
 EXEC sp_rename 'nome_tabela', 'novo_nome';
 
 -- Alterar nome da coluna
-EXEC sp_rename 'nome_tabela.nome_coluna', 'novo_nome', 'COLUMN';
+EXEC sp_rename 'nome_schema.nome_tabela.nome_coluna', 'novo_nome', 'COLUMN';
 
 -- Listar Informações de tabelas do banco
 SELECT *
