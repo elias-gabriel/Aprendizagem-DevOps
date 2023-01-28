@@ -26,13 +26,16 @@ alter TABLE inventário ALTER COLUMN nome_fruta varchar(60) NOT NULL
 ALTER TABLE nome_tabela CHANGE COLUMN nome_antigo_coluna novo_nome_coluna CHAR(35) NOT NULL DEFAULT '' ;
 
 -- Alterar nome da tabela 
-sp_rename 'nome_tabela', 'novo_nome';
+EXEC sp_rename 'nome_tabela', 'novo_nome';
 
 -- Alterar nome da coluna
-sp_rename 'nome_tabela.nome_coluna', 'novo_nome', 'COLUMN';
+EXEC sp_rename 'nome_tabela.nome_coluna', 'novo_nome', 'COLUMN';
 
 -- Listar Informações de tabelas do banco
-SELECT * FROM information_schema.tables 
+SELECT *
+FROM information_Schema.Columns C
+FULL OUTER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE U ON C.COLUMN_NAME = U.COLUMN_NAME
+WHERE C.TABLE_NAME = 'TABLE_NAME'
 
 /*
 -- Operação Like -- 
