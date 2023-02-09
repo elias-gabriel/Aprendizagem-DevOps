@@ -1,6 +1,6 @@
 # This code will take a specific table from Databricks and  write it on SQL Sever
 
-server_name = "sql-elias"
+server_name = "<server_name>"
 jdbc_url = f"jdbc:sqlserver://{server_name}.database.windows.net"
 port = "1433"
 database = "<database_name>"
@@ -27,7 +27,7 @@ table_names = ["friends_info", "quotes", "advices"]
 for table_name in table_names:
     df = spark.table(table_name)
     
-    server_name = "<database_name>"
+    server_name = "<server_name>"
     jdbc_url = f"jdbc:sqlserver://{server_name}.database.windows.net"
     port = "1433"
     database = "<database_name>"
@@ -53,7 +53,7 @@ table_names = ["table_1", "table_2", "table_3"]
 for table_name in table_names:
     df = spark.table(table_name)
     
-    server_name = "<database_name>"
+    server_name = "<server_name>"
     jdbc_url = f"jdbc:sqlserver://{server_name}.database.windows.net"
     port = "1433"
     database = "<database_name>"
