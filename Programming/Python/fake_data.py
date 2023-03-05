@@ -4,35 +4,34 @@ from faker import Faker
 
 fake = Faker(locale='pt_BR')
 
-# Open the CSV file in append mode
-with open('fake_data.csv', 'a', newline='', encoding='utf-8') as f:
-    writer = csv.writer(f)
+# Prompt the user for the number of records to generate
+while True:
+    try:
+        num_records = int(input("How many records do you want to generate? "))
+        if num_records <= 0:
+            raise ValueError()
+        break
+    except ValueError:
+        print("Invalid input. Please enter a positive integer.")
 
-    # Only write the header row if the file is empty
-    if f.tell() == 0:
-        writer.writerow(['nome', 'endereço', 'email', 'telefone', 'cpf', 'cnpj', 'cep', 'cidade', 'estado', 'pais', 'data', 'hora'])
-
-    # Open the JSON file in append mode
-    with open('fake_data.json', 'a', encoding='utf-8') as j:
-        for i in range(10):
-            nome = (fake.name())
-            endereço = (fake.address())
-            email = (fake.email())
-            telefone = (fake.phone_number())
-            cpf = (fake.cpf())
-            cnpj = (fake.cnpj())
-            cep = (fake.postcode())
-            cidade = (fake.city())
-            estado = (fake.state())
-            pais = (fake.country())
-            data = (fake.date())
-            hora = (fake.time())
-
-            # Write each row to the CSV file
-            writer.writerow([nome, endereço, email, telefone, cpf, cnpj, cep, cidade, estado, pais, data, hora])
-
-            # Write each set of data to the JSON file
-            json.dump({
+# Prompt the user to choose the output format
+while True:
+    choice = input("Do you want to save the data in CSV or JSON format? ").lower()
+    if choice == "csv":
+        # Generate the data
+        data = []
+        for i in range(num_records):
+            nome = fake.name()
+            endereço = fake.address()
+            email = fake.email()
+            telefone = fake.phone_number()
+            cpf = fake.cpf()
+            cnpj = fake.cnpj()
+            cep = fake.postcode()
+            cidade = fake.city()
+            estado = fake.state()
+            pais = fake.country()
+            data.append({
                 'nome': nome,
                 'endereço': endereço,
                 'email': email,
@@ -43,9 +42,53 @@ with open('fake_data.csv', 'a', newline='', encoding='utf-8') as f:
                 'cidade': cidade,
                 'estado': estado,
                 'pais': pais,
-                'data': data,
-                'hora': hora,
-            }, j, ensure_ascii=False, indent=4)
+                'data': fake.date(),
+                'hora': fake.time(),
+            })
 
-            # Add a newline character after each set of data
-            j.write('\n')
+        # Write the data to the CSV file using a context manager
+        with open('fake_data.csv', 'a', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=data[0].keys())
+            if f.tell() == 0:
+                writer.writeheader()
+            writer.writerows(data)
+        break
+    elif choice == "json":
+        # Generate the data
+        data = []
+        for i in range(num_records):
+            nome = fake.name()
+            endereço = fake.address()
+            email = fake.email()
+            telefone = fake.phone_number()
+            cpf = fake.cpf()
+            cnpj = fake.cnpj()
+            cep = fake.postcode()
+            cidade = fake.city()
+            estado = fake.state()
+            pais = fake.country()
+            data.append({
+                'nome': nome,
+                'endereço': endereço,
+                'email': email,
+                'telefone': telefone,
+                'cpf': cpf,
+                'cnpj': cnpj,
+                'cep': cep,
+                'cidade': cidade,
+                'estado': estado,
+                'pais': pais,
+                'data': fake.date(),
+                'hora': fake.time(),
+            })
+
+        # Write the data to the JSON file using a context manager
+        with open('fake_data.json', 'a', encoding='utf-8') as f:
+            for item in data:
+                json.dump(item, f, ensure_ascii=False, indent=4)
+                f.write('\n')
+        break
+    else:
+        print("Invalid choice. Please enter 'csv' or 'json'.")
+
+print("Data saved successfully!")
