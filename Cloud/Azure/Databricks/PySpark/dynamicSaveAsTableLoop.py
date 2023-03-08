@@ -12,6 +12,8 @@ for arquivo in arquivos:
         df.write.option("overwriteSchema", "true").mode("overwrite").format('delta').saveAsTable(f'refined.{table_name}', path = deltaFile)
 
 ########################################################################################################################################
+# creating tables on delta lake that exists on data lake but not on delta lake
+
 
 lista_bricks = [a.name for a in spark.catalog.listTables('DATABASE_NAME')]
 print(lista_bricks)
@@ -19,7 +21,6 @@ print(lista_bricks)
 arquivos = dbutils.fs.ls('/mnt/refined/')
 display(arquivos)
 
-arquivos = dbutils.fs.ls('/mnt/refined/')
 lista_lake = []
 
 for arquivo in arquivos:
