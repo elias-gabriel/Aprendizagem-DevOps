@@ -1,15 +1,35 @@
 import os
 import xml.etree.ElementTree as ET
 import csv
+import re
 
-def extract_schema(component):
+def extract_schema_and_filetype(component):
     open_rowset_property = component.find('./properties/property[@name="OpenRowset"]')
+    connection_string_property = component.find('./properties/property[@name="ConnectionString"]')
     if open_rowset_property is not None:
         open_rowset_value = open_rowset_property.text
         if open_rowset_value:
-            schema = open_rowset_value.split('.')[0]
-            return schema
-    return None
+            schema_match = re.match(r"^(.+?)[\s\.](?=[^\.]+?$)", open_rowset_value)
+            if schema_match:
+                schema = schema_match.group(1)
+            else:
+                schema = None
+        else:
+            schema = None
+    else:
+        schema = None
+
+    if connection_string_property is not None:
+        connection_string = connection_string_property.text
+        file_type_match = re.search(r"\.(\w+);?", connection_string)
+        if file_type_match:
+            file_type = file_type_match.group(1)
+        else:
+            file_type = None
+    else:
+        file_type = None
+
+    return schema, file_type
 
 def extract_sources_and_destinations(tree):
     sources = []
@@ -18,10 +38,10 @@ def extract_sources_and_destinations(tree):
     for component in tree.findall('.//component'):
         component_name = component.get('name')
         component_classID = component.get('componentClassID')
-        schema = extract_schema(component)
+        schema, file_type = extract_schema_and_filetype(component)
 
         if 'Source' in component_classID:
-            sources.append((schema, component_name))
+            sources.append((file_type, component_name))  # Set schema to file_type for sources
         elif 'Destination' in component_classID:
             destinations.append((schema, component_name))
 
@@ -58,8 +78,7 @@ with open(csv_output_file, mode='w', newline='', encoding='utf-8') as csvfile:
                 sources, destinations = extract_sources_and_destinations(tree)
 
                 for schema, source in sources:
-                    full_name = source if schema is None else f"[{schema}].[{source}]"
-                    full_name = full_name.replace("[[", "[").replace("]]", "]")
+                    full_name = f"{source}.{schema}" if schema else source
                     csv_writer.writerow([dtsx_file, package, 'Source', schema, source, full_name])
 
                 for schema, destination in destinations:
