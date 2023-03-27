@@ -60,3 +60,6 @@ for item in data:
     print(f"name: {name}")
     print(f"entityType: {type}")
     print("\n")
+
+    
+    #get the token here? https://github.com/elias-gabriel/Aprendizagem-DevOps/blob/master/Cloud/Azure/get_pur_token.ps1
