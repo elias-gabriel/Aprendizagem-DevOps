@@ -58,7 +58,7 @@ with open(csv_output_file, mode='w', newline='', encoding='utf-8') as csvfile:
                 sources, destinations = extract_sources_and_destinations(tree)
 
                 for schema, source in sources:
-                    full_name = f"[{schema}].[{source}]" if schema else source
+                    full_name = source if schema is None else f"[{schema}].[{source}]"
                     full_name = full_name.replace("[[", "[").replace("]]", "]")
                     csv_writer.writerow([dtsx_file, package, 'Source', schema, source, full_name])
 
@@ -66,6 +66,5 @@ with open(csv_output_file, mode='w', newline='', encoding='utf-8') as csvfile:
                     full_name = f"[{schema}].[{destination}]" if schema else destination
                     full_name = full_name.replace("[[", "[").replace("]]", "]")
                     csv_writer.writerow([dtsx_file, package, 'Destination', schema, destination, full_name])
-
             else:
                 csv_writer.writerow([dtsx_file, package, 'Subpackage not found', '', '', ''])
