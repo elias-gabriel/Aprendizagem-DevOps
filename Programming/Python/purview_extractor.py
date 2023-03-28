@@ -1,65 +1,52 @@
 import requests
 import json
 
-purview_account_name = ""
-
-with open("token.txt", "r") as f:
-    access_token = f.read().strip()
-
-def get_data_by_table_name(table_name):
-    api_url = f"https://{purview_account_name}.purview.azure.com/catalog/api/search/query?api-version=2022-08-01-preview"
-    headers = {"Authorization": f"Bearer {access_token}",
-               "Content-Type": "application/json"}
-
-    request_body = {
-    "searchText": f"qualifiedName:\"{table_name}\"",
-    "searchMode": "All",
-    "facets": [],
-    "sortBy": "name",
-    "sortOrder": "ascending",
-    "pageSize": 1,  
-    "skip": 0,
-    "limit": 1  
+def azuread_auth(tenant_id: str, client_id: str, client_secret: str, resource_url: str):
+    """
+    Authenticates Service Principal to the provided Resource URL, and returns the OAuth Access Token
+    """
+    url = f"https://login.microsoftonline.com/{tenant_id}/oauth2/token"
+    payload= f'grant_type=client_credentials&client_id={client_id}&client_secret={client_secret}&resource={resource_url}'
+    headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
     }
+    response = requests.request("POST", url, headers=headers, data=payload)
+    access_token = json.loads(response.text)['access_token']
+    return access_token
 
+def get_purview_assets(data_catalog_name: str,azuread_access_token: str,table_name: str):
+    url = f"https://{data_catalog_name}.purview.azure.com/catalog/api/search/query?api-version=2022-08-01-preview"
 
-    try:
-        get_data_request = requests.post(url=api_url, headers=headers, json=request_body)
-        get_data_request.raise_for_status()
+    headers = {
+        'Authorization': f'Bearer {azuread_access_token}',
+        'Content-Type': 'application/json'
+        }
 
-    except requests.exceptions.HTTPError as e:
-        if e.response.status_code == 401:  # Unauthorized
-            print("Error: Token expired. Please refresh the token and try again.")
-        else:
-            print(f"Error: An HTTP error occurred: {e}")
-        return []
+    payload="""{
+            "keywords": null,
+            "limit": 1000,
+            "filter": {
+                "and": [
+                {
+                    "attributeName": "qualifiedName",
+                    "operator": "contains",
+                    "attributeValue": "%s"
+                }
+                ]
+            }
+        }""" % (table_name)
 
-    data = get_data_request.json()
-
-    if 'value' not in data:
-        print(f"Error: 'value' key missing in response data:\n{data}")
-        return []
-
+    response = requests.request("POST", url, headers=headers, data=payload)
+    data = response.json()
     return data['value']
 
+tenant_id = ""
+client_id = ""
+client_secret = ""
+resource_url = "https://purview.azure.net"
+data_catalog_name = "<purview_account_name>"
+azuread_access_token = azuread_auth(tenant_id,client_id,client_secret,resource_url)
+
 table_name = ""
-data = get_data_by_table_name(table_name)
-
-with open("results.json", "w", encoding='utf-8') as f:
-    json.dump(data, f, ensure_ascii=False, indent=4)
-#print(data)
-
-for item in data:
-    item_id = item['id']
-    qualified_name = item['qualifiedName'].split("@")[0]
-    name = item['name']
-    type = item['entityType']
-    
-    print(f"\nid: {item_id}")
-    print(f"qualifiedName: {qualified_name}")
-    print(f"name: {name}")
-    print(f"entityType: {type}")
-    print("\n")
-
-    
-    #get the token here? https://github.com/elias-gabriel/Aprendizagem-DevOps/blob/master/Cloud/Azure/get_pur_token.ps1
+data  = get_purview_assets(data_catalog_name,azuread_access_token,table_name)
+print(data)
