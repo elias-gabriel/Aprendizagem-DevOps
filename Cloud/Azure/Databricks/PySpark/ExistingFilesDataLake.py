@@ -23,5 +23,7 @@ def compara_lista(lista_lake, lista_arquivos):
         else:
             print('Arquivo', arquivo, 'não existe no lake')
             fora_lake.append(arquivo)
-            fora_lake.write.csv('/mnt/raw/json/fora_lake.csv', header = True)
+    fora_lake.write.csv('/mnt/raw/json/fora_lake.csv', header = True)
     return fora_lake
+
+compara_lista(lista_lake, lista_arquivos)
